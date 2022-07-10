@@ -2,7 +2,9 @@ import displayProductCard from './components/productCard.js';
 import addCategoryOptions from './components/categoryFilter.js';
 import displayLoading from './components/loader.js';
 import displayError from './components/error.js';
+import displayPagination from './components/pagination.js';
 
+/** fecth list of categories */
 const getCategoriesData = async () => {
 
   return fetch('http://localhost:5000/api/categories')
@@ -20,11 +22,13 @@ const getCategoriesData = async () => {
     });
 }
 
+/** fecth list of products */
 const getProductsData = async (url) => {
 
   displayLoading(true);
   displayError(false);
   document.querySelector('#products-list').innerHTML = '';
+  document.querySelector("#pagination").innerHTML = '';
 
   try {
 
@@ -42,6 +46,9 @@ const getProductsData = async (url) => {
       displayProductCard(product);
     });
 
+    displayPagination(data.pagination, data.totalCount);
+    addPaginationListeners();
+
     displayLoading(false);
     productsData.length > 0 ? displayError(false) : displayError(true);
 
@@ -52,10 +59,11 @@ const getProductsData = async (url) => {
     
 }
 
-const filterProducts = (e) => {
+/** get products filters */
+const filterProducts = (e, offset = 0, limit = 20) => {
 
   e.preventDefault();
-
+  
   const categoryFilter = document.querySelector('#categories-filter');
   const selectedCategory = categoryFilter.options[categoryFilter.selectedIndex].value;
 
@@ -75,7 +83,7 @@ const filterProducts = (e) => {
     url += `name=${searchInputValue}&`;
   }
 
-  url += `orderField=${sortField}&orderType=${sortOrder}`;
+  url += `orderField=${sortField}&orderType=${sortOrder}&offset=${offset}&limit=${limit}`;
 
   getProductsData(url);
 }
@@ -84,17 +92,30 @@ const addListeners = () => {
 
   // select
   const selectFilter = document.querySelector('#categories-filter');
-  selectFilter.addEventListener('change', filterProducts);
+  selectFilter.addEventListener('change', (e) => filterProducts(e));
 
   // search
   const searchForm = document.querySelector('#search-form');
-  searchForm.addEventListener('submit', filterProducts);
+  searchForm.addEventListener('submit', (e) => filterProducts(e));
 
   // sort
   const sortSelect = document.querySelector('#sort-name');
-  sortSelect.addEventListener('change', filterProducts);
+  sortSelect.addEventListener('change', (e) => filterProducts(e));
 }
 
+const addPaginationListeners = () => {
+  const paginationUl = document.querySelector("#pagination").childNodes[0];
+
+  for(let pageLink of [...paginationUl.childNodes]){
+    const linkBtn = pageLink.querySelector('button');
+    const offset = linkBtn.dataset.offset;
+    const limit = linkBtn.dataset.limit;
+    linkBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      filterProducts(offset, limit);
+    });
+  }
+}
 
 const load = async () => {
 

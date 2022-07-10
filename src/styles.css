@@ -97,3 +97,32 @@ a {
 #error-msg {
   display: none;
 }
+
+.pagination-info {
+  text-align:center;
+  display: block;
+  width: 100%;
+}
+
+@media screen and (max-width: 950px) {
+
+  #products-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 768px) {
+
+  /* For tablets: */
+  #products-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 450px) {
+
+  /* For mobile phones: */
+  #products-list {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+}
