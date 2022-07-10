@@ -17,7 +17,7 @@
       <div class="container-fluid">
         <a class="navbar-brand">BSALE TEST</a>
         <form class="d-flex">
-          <input class="form-control me-2" type="search" placeholder="Search Product" aria-label="Search">
+          <input id="search-input" class="form-control me-2" type="search" placeholder="Search Product" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
         </form>
       </div>
@@ -26,6 +26,14 @@
 
   <!-- Main Content -->
   <main class="container my-5">
+
+    <!-- Category Filter -->
+    <div id="categories-list" class="my-4">
+      <label for="categories-filter">Select category: </label>
+      <select name="categories-filter" id="categories-filter" class="form-select ms-3">
+        <option value="" selected>-- All categories</option>
+      </select>
+    </div>
 
     <!-- Product List -->
     <div id="products-list">

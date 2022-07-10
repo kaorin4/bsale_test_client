@@ -13,6 +13,16 @@ a {
   text-decoration: none;
 }
 
+#categories-list {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#categories-filter {
+  width: 200px;
+}
+
 #products-list {
   display: grid;
   gap: 2rem;
