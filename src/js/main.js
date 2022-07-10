@@ -1,5 +1,6 @@
 import displayProductCard from './components/productCard.js';
 import addCategoryOptions from './components/categoryFilter.js';
+import displayLoading from './components/loader.js';
 
 const getCategoriesData = async () => {
 
@@ -20,6 +21,7 @@ const getCategoriesData = async () => {
 
 const getProductsData = async (url) => {
 
+  displayLoading(true);
   document.querySelector('#products-list').innerHTML = '';
 
   try {
@@ -38,8 +40,11 @@ const getProductsData = async (url) => {
       displayProductCard(product);
     });
 
+    displayLoading(false);
+
   } catch(err) {
     console.log(err); 
+    displayLoading(false);
   }
     
 }

@@ -78,3 +78,11 @@ a {
   top: 0.5rem;
   right: 0.5rem;
 }
+
+.loading-img {
+  width: 10rem;
+  height: 10rem;
+  display: block;
+  margin: 0 auto;
+  margin-top: 2rem;
+}
