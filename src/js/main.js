@@ -48,15 +48,20 @@ const getProductsData = async (url) => {
       displayProductCard(product);
     });
 
-    displayPagination(data.pagination, data.totalCount);
-    addPaginationListeners();
-
     displayLoading(false);
-    productsData.length > 0 ? displayError(false) : displayError(true);
+
+    if(productsData.length > 0){
+      displayError(false);
+      displayPagination(data.pagination, data.totalCount);
+      addPaginationListeners();
+    } else {
+      displayError(true);
+    }
 
   } catch(err) {
     console.log(err); 
     displayLoading(false);
+    displayError(true);
   }
     
 }
