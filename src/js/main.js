@@ -4,10 +4,12 @@ import displayLoading from './components/loader.js';
 import displayError from './components/error.js';
 import displayPagination from './components/pagination.js';
 
+const baseUrl = 'https://bsaletestapikmura.herokuapp.com';
+
 /** fecth list of categories */
 const getCategoriesData = async () => {
 
-  return fetch('http://localhost:5000/api/categories')
+  return fetch(`${baseUrl}/api/categories`)
     .then(res => {
       if(!res.ok){
         throw Error('error');
@@ -73,7 +75,7 @@ const filterProducts = (e, offset = 0, limit = 20) => {
   const sortField = sortSelect.options[sortSelect.selectedIndex].dataset.field;
   const sortOrder = sortSelect.options[sortSelect.selectedIndex].dataset.order;
 
-  let url = `http://localhost:5000/api/products?`
+  let url = `${baseUrl}/api/products?`
   
   if(selectedCategory){
     url += `category=${selectedCategory}&`;
@@ -124,7 +126,7 @@ const load = async () => {
   // add event listeners
   addListeners();
 
-  let url = "http://localhost:5000/api/products";
+  let url = `${baseUrl}/api/products`;
   getProductsData(url);
 
 }
