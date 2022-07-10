@@ -32,7 +32,7 @@ const displayPagination = (pagination, totalCount) => {
 
   let paginationInfo = document.createElement('span');
   paginationInfo.classList.add('pagination-info');
-  paginationInfo.innerHTML = `Showing ${page * limit}-${(page * limit) + limit} of ${totalCount} products`;
+  paginationInfo.innerHTML = `Showing ${(page-1) * limit}-${((page-1) * limit) + limit} of ${totalCount} products`;
   paginationDiv.append(paginationInfo);
 }
 

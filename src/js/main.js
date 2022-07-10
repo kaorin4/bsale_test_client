@@ -67,10 +67,8 @@ const getProductsData = async (url) => {
 }
 
 /** get products filters */
-const filterProducts = (e, offset = 0, limit = 20) => {
+const filterProducts = (offset = 0, limit = 20) => {
 
-  e.preventDefault();
-  
   const categoryFilter = document.querySelector('#categories-filter');
   const selectedCategory = categoryFilter.options[categoryFilter.selectedIndex].value;
 
@@ -99,15 +97,24 @@ const addListeners = () => {
 
   // select
   const selectFilter = document.querySelector('#categories-filter');
-  selectFilter.addEventListener('change', (e) => filterProducts(e));
+  selectFilter.addEventListener('change', (e) => {
+    e.preventDefault();
+    filterProducts();
+  });
 
   // search
   const searchForm = document.querySelector('#search-form');
-  searchForm.addEventListener('submit', (e) => filterProducts(e));
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    filterProducts();
+  });
 
   // sort
   const sortSelect = document.querySelector('#sort-name');
-  sortSelect.addEventListener('change', (e) => filterProducts(e));
+  sortSelect.addEventListener('change', (e) => {
+    e.preventDefault();
+    filterProducts();
+  });
 }
 
 const addPaginationListeners = () => {
