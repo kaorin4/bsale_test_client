@@ -1,6 +1,7 @@
 import displayProductCard from './components/productCard.js';
 import addCategoryOptions from './components/categoryFilter.js';
 import displayLoading from './components/loader.js';
+import displayError from './components/error.js';
 
 const getCategoriesData = async () => {
 
@@ -22,6 +23,7 @@ const getCategoriesData = async () => {
 const getProductsData = async (url) => {
 
   displayLoading(true);
+  displayError(false);
   document.querySelector('#products-list').innerHTML = '';
 
   try {
@@ -41,6 +43,7 @@ const getProductsData = async (url) => {
     });
 
     displayLoading(false);
+    productsData.length > 0 ? displayError(false) : displayError(true);
 
   } catch(err) {
     console.log(err); 
