@@ -20,6 +20,16 @@ a {
   font-weight: 600;
 }
 
+#search-input {
+  border: 1px solid darkgrey;
+}
+
+#search-btn {
+  border: 1px solid #ff5c1a;
+  background-color: #ff5c1a;
+  color: #fff;
+}
+
 #categories-list {
   display: flex;
   justify-content: center;

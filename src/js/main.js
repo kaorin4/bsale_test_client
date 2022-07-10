@@ -1,4 +1,5 @@
 import displayProductCard from './components/productCard.js';
+import addCategoryOptions from './components/categoryFilter.js';
 
 const getCategoriesData = async () => {
 
@@ -10,7 +11,7 @@ const getCategoriesData = async () => {
       return res.json();
     })
     .then(data => {
-      addCategories(data.data);
+      addCategoryOptions(data.data);
     })
     .catch(err => {
       console.log(err);
@@ -56,16 +57,19 @@ const filterProductsByCategory = (e) => {
   getProductsData(url);
 }
 
-const addCategories = (categories) => {
+const searchProducts = (e) => {
 
-  const selectFilter = document.querySelector('#categories-filter');
+  e.preventDefault();
 
-  categories.map(category => {
+  const searchInputValue = document.querySelector('#search-input').value.trim();
+  if(searchInputValue == ""){
+    filterProductsByCategory(e);
+    return;
+  }
 
-    const option = new Option(category.name, category.id);
-    selectFilter.appendChild(option);
-  });
-
+  const url = `http://localhost:5000/api/products/search?name=${searchInputValue}`;
+  document.querySelector('#categories-filter').value = "";
+  getProductsData(url);
 }
 
 const addListeners = () => {
@@ -73,6 +77,10 @@ const addListeners = () => {
   // select
   const selectFilter = document.querySelector('#categories-filter');
   selectFilter.addEventListener('change', filterProductsByCategory);
+
+  // search
+  const searchForm = document.querySelector('#search-form');
+  searchForm.addEventListener('submit', searchProducts);
 }
 
 
