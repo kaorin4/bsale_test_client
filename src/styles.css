@@ -30,7 +30,14 @@ a {
   color: #fff;
 }
 
-#categories-list {
+.filters-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+#categories-list,
+#sort-name {
   display: flex;
   justify-content: center;
   align-items: center;

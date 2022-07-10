@@ -27,12 +27,25 @@
   <!-- Main Content -->
   <main class="container my-5">
 
-    <!-- Category Filter -->
-    <div id="categories-list" class="my-4">
-      <label for="categories-filter">Select category: </label>
-      <select name="categories-filter" id="categories-filter" class="form-select ms-3">
-        <option value="" selected>-- All categories</option>
-      </select>
+    <div class="container filters-container">
+      <!-- Category Filter -->
+      <div id="categories-list" class="my-4">
+        <label for="categories-filter">Select category: </label>
+        <select name="categories-filter" id="categories-filter" class="form-select ms-3">
+          <option value="" selected>-- All categories</option>
+        </select>
+      </div>
+
+      <!-- Sort by name -->
+      <div class="my-4">
+        <select name="sort-name" id="sort-name" class="form-select ms-3">
+          <option data-field="name" data-order="ASC" value="ASC" selected>Name: A-Z</option>
+          <option data-field="name" data-order="DESC" value="DESC">Name: Z-A</option>
+          <option data-field="price" data-order="ASC" value="ASC">Price: Low-High</option>
+          <option data-field="price" data-order="DESC" value="DESC">Price: High-Low</option>
+        </select>
+      </div>
+
     </div>
 
     <!-- Product List -->

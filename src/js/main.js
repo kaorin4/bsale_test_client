@@ -52,31 +52,31 @@ const getProductsData = async (url) => {
     
 }
 
-const filterProductsByCategory = (e) => {
+const filterProducts = (e) => {
 
   e.preventDefault();
 
-  const selectFilter = document.querySelector('#categories-filter');
-  const selectedCategory = selectFilter.options[selectFilter.selectedIndex].value;
-
-  const url = selectedCategory ? `http://localhost:5000/api/products/category/${selectedCategory}` : `http://localhost:5000/api/products`;
-
-  document.querySelector('#search-input').value = "";
-  getProductsData(url);
-}
-
-const searchProducts = (e) => {
-
-  e.preventDefault();
+  const categoryFilter = document.querySelector('#categories-filter');
+  const selectedCategory = categoryFilter.options[categoryFilter.selectedIndex].value;
 
   const searchInputValue = document.querySelector('#search-input').value.trim();
-  if(searchInputValue == ""){
-    filterProductsByCategory(e);
-    return;
+
+  const sortSelect = document.querySelector('#sort-name');
+  const sortField = sortSelect.options[sortSelect.selectedIndex].dataset.field;
+  const sortOrder = sortSelect.options[sortSelect.selectedIndex].dataset.order;
+
+  let url = `http://localhost:5000/api/products?`
+  
+  if(selectedCategory){
+    url += `category=${selectedCategory}&`;
   }
 
-  const url = `http://localhost:5000/api/products/search?name=${searchInputValue}`;
-  document.querySelector('#categories-filter').value = "";
+  if(searchInputValue && searchInputValue.length > 0){
+    url += `name=${searchInputValue}&`;
+  }
+
+  url += `orderField=${sortField}&orderType=${sortOrder}`;
+
   getProductsData(url);
 }
 
@@ -84,11 +84,15 @@ const addListeners = () => {
 
   // select
   const selectFilter = document.querySelector('#categories-filter');
-  selectFilter.addEventListener('change', filterProductsByCategory);
+  selectFilter.addEventListener('change', filterProducts);
 
   // search
   const searchForm = document.querySelector('#search-form');
-  searchForm.addEventListener('submit', searchProducts);
+  searchForm.addEventListener('submit', filterProducts);
+
+  // sort
+  const sortSelect = document.querySelector('#sort-name');
+  sortSelect.addEventListener('change', filterProducts);
 }
 
 
